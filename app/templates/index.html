@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing WebApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Image Processing WebApp</h1>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload and Process Image</button>
+    </form>
+
+    {% if filename %}
+        <h2>Original Image</h2>
+        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Original Image">
+
+        {% if prediction is defined %}
+            <h2>Prediction</h2>
+            <p>Class: {{ prediction }}</p>
+        {% endif %}
+    {% endif %}
+    {% if input_filename %}
+    
+    <h2>Input Image:</h2>
+    <img src="{{ url_for('static', filename='uploads/input.jpg') }}" alt="Input Image" style="max-width: 400px;">
+
+    {% if output_filename %}
+        <h2>Output Image:</h2>
+        <img src="{{ url_for('static', filename='predicted/output.jpg') }}" alt="Output Image" style="max-width: 400px;">
+    {% endif %}
+    {% endif %}
+</body>
+</html>
